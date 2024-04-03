@@ -10,6 +10,7 @@ import java.util.Optional;
 
 public class Car implements Serializable {
     private static ArrayList<Car> extent = new ArrayList<>();
+    private static final int numberOfWheels = 4;
     private int fuelCapacity;
     private double fuelUsePer100;
     private String modelName;
@@ -28,7 +29,7 @@ public class Car implements Serializable {
         extent.add(this);
     }
 
-    public double calculateRange()
+    public double getRange()
     {
         return fuelCapacity/fuelUsePer100*100;
     }
