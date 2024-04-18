@@ -72,7 +72,7 @@ public class Car {
     public class ServiceInformation {
         private final boolean passed;
         private final Date date;
-        private final Car car;
+        private Car car;
 
         public ServiceInformation(boolean passed, Date date, Car car) {
             this.passed = passed;
