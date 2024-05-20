@@ -4,9 +4,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Ticket {
+    // Ograniczenie unique
     private int id;
     private static final Set<Integer> idSet = new HashSet<Integer>();
+    // Ograniczenie atrybutu
     private int price;
+    private Event event;
     public Ticket(int id, int price) {
         if(idSet.contains(id)) {
             throw new IllegalArgumentException("Ticket already exists");
@@ -21,6 +24,10 @@ public class Ticket {
     }
     public int getId() {
         return id;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 
     public void setId(int id) {
