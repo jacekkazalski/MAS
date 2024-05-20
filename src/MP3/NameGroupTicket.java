@@ -1,7 +1,7 @@
 package MP3;
 
 public class NameGroupTicket extends NameTicket {
-    private GroupTicket groupTicket;
+    private final GroupTicket groupTicket;
 
     public NameGroupTicket( Event event, String firstName, String lastName, int groupSize) {
         super( event, firstName, lastName);

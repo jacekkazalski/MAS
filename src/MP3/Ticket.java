@@ -4,8 +4,8 @@ import java.util.EnumSet;
 
 public abstract class Ticket {
     private double price;
-    private EnumSet<TicketCategory> ticketCategory;
-    private Event event;
+    private final EnumSet<TicketCategory> ticketCategory;
+    private final Event event;
 
     public Ticket(Event event) {
         this.event = event;
@@ -45,7 +45,5 @@ public abstract class Ticket {
     public String getTicketDetails() {
         return "\n" + event.toString() + "\nTicket: " + ticketCategory.toString() + " Price: " + price;
     }
-
-    ;
 
 }

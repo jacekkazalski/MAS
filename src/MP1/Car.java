@@ -11,12 +11,12 @@ import java.util.Optional;
 public class Car implements Serializable {
     private static ArrayList<Car> extent = new ArrayList<>();
     private static final int numberOfWheels = 4;
-    private int fuelCapacity;
-    private double fuelUsePer100;
-    private String modelName;
-    private Integer horsepower;
-    private Date productionDate;
-    private ArrayList<Date> serviceDates;
+    private final int fuelCapacity;
+    private final double fuelUsePer100;
+    private final String modelName;
+    private final Integer horsepower;
+    private final Date productionDate;
+    private final ArrayList<Date> serviceDates;
 
     public Car(int fuelCapacity, double fuelUsePer100, Integer horsepower, Date productionDate, String modelName) {
         this.fuelCapacity = fuelCapacity;

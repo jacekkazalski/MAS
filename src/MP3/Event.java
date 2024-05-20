@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Event {
-    private Date date;
-    private ArrayList<Object> eventType = new ArrayList<>();
+    private final Date date;
+    private final ArrayList<Object> eventType = new ArrayList<>();
 
     public Event(Date date, String bandName) {
         this.date = date;
@@ -30,7 +30,7 @@ public class Event {
     }
 
     private class OnlineEvent {
-        private URI eventLink;
+        private final URI eventLink;
 
         public OnlineEvent(URI eventLink) {
             this.eventLink = eventLink;
@@ -43,7 +43,7 @@ public class Event {
     }
 
     private class Concert {
-        private String bandName;
+        private final String bandName;
 
         public Concert(String bandName) {
             this.bandName = bandName;

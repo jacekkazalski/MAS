@@ -1,7 +1,7 @@
 package MP3;
 
 public class GroupTicket extends Ticket {
-    private int groupSize;
+    private final int groupSize;
 
     public GroupTicket( Event event, int groupSize) {
         super(event);
