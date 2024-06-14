@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="ANALYZE_INJECTED_CODE" value="false" />
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="dba5fdf4-5c3f-412e-a236-d55970c46baf" name="Changes" comment="mp4 all except xor">
+      <change beforePath="$PROJECT_DIR$/src/MP4/Main.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;jacekkazalski&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/jacekkazalski/MAS.git&quot;,
+    &quot;accountId&quot;: &quot;b9d4e699-e086-497e-a630-ca4062fb1fee&quot;
+  }
+}</component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2du2YG4ZTEEgqpEMA0BCiAnwgA0" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.MP2.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TicketBookingSystem.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Admin/Desktop/studia/MAS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/s22393/IdeaProjects/MAS/src/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="dba5fdf4-5c3f-412e-a236-d55970c46baf" name="Changes" comment="" />
+      <created>1710843689984</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1710843689984</updated>
+      <workItem from="1710843691639" duration="1499000" />
+      <workItem from="1712174019897" duration="2436000" />
+      <workItem from="1712176517192" duration="911000" />
+      <workItem from="1712433122258" duration="1133000" />
+      <workItem from="1712674819700" duration="1804000" />
+      <workItem from="1713345758554" duration="7127000" />
+      <workItem from="1715580000923" duration="108000" />
+      <workItem from="1715580122607" duration="71000" />
+      <workItem from="1715580206547" duration="56000" />
+      <workItem from="1715580264110" duration="226000" />
+      <workItem from="1715580501539" duration="107000" />
+      <workItem from="1716192604877" duration="7354000" />
+      <workItem from="1716396157891" duration="23000" />
+      <workItem from="1717319203235" duration="4131000" />
+      <workItem from="1717356410438" duration="698000" />
+      <workItem from="1717422308263" duration="1017000" />
+      <workItem from="1717438508249" duration="607000" />
+      <workItem from="1718278192510" duration="1910000" />
+      <workItem from="1718347985272" duration="11000" />
+    </task>
+    <task id="LOCAL-00001" summary="mp1">
+      <created>1712176612417</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1712176612418</updated>
+    </task>
+    <task id="LOCAL-00002" summary="mp1">
+      <created>1712176648967</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1712176648967</updated>
+    </task>
+    <task id="LOCAL-00003" summary="mp1">
+      <created>1712177228186</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1712177228186</updated>
+    </task>
+    <task id="LOCAL-00004" summary="mp2">
+      <option name="closed" value="true" />
+      <created>1713354935378</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1713354935378</updated>
+    </task>
+    <task id="LOCAL-00005" summary="mp3 fixes">
+      <option name="closed" value="true" />
+      <created>1716192850283</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1716192850283</updated>
+    </task>
+    <task id="LOCAL-00006" summary="mp4 start">
+      <option name="closed" value="true" />
+      <created>1716193506890</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1716193506890</updated>
+    </task>
+    <task id="LOCAL-00007" summary="mp4 all except xor">
+      <option name="closed" value="true" />
+      <created>1716223548318</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1716223548318</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="mp1" />
+    <MESSAGE value="mp2" />
+    <MESSAGE value="mp3 fixes" />
+    <MESSAGE value="mp4 start" />
+    <MESSAGE value="mp4 all except xor" />
+    <option name="LAST_COMMIT_MESSAGE" value="mp4 all except xor" />
+  </component>
+</project>
