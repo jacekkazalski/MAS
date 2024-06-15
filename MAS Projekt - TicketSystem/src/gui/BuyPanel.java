@@ -3,6 +3,7 @@ package gui;
 import gui.components.CustomButton;
 import gui.components.CustomComboBox;
 import gui.components.CustomLabel;
+import gui.components.CustomTextField;
 import model.*;
 import model.Event;
 
@@ -13,8 +14,12 @@ import java.util.Arrays;
 
 public class BuyPanel extends JPanel {
     private final GridBagConstraints gbc;
-    private final ArrayList<ArrayList<JComponent>> ticketRows = new ArrayList<>();
+
+    private enum selectedTicketType {NAMED, GROUP, NONE}
+
+    private ArrayList<ArrayList<JComponent>> ticketForm = new ArrayList<>();
     private final Event eventData;
+
     public BuyPanel(Event eventData, CardLayout cardLayout, JPanel cardPanel) {
         this.eventData = eventData;
         setLayout(new GridBagLayout());
@@ -23,59 +28,76 @@ public class BuyPanel extends JPanel {
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.gridx = 0;
         gbc.gridy = 0;
-        add(new CustomLabel(eventData.getName(),30,true), gbc);
+        add(new CustomLabel(eventData.getName(), 30, true), gbc);
         gbc.gridy = 1;
-        add(new CustomLabel(eventData.getStartDate().toString(), 24, true),gbc);
+        add(new CustomLabel(eventData.getStartDate().toString(), 24, true), gbc);
         gbc.gridy = 2;
         JButton confirmButton = getConfirmButton(eventData, cardLayout, cardPanel);
         add(confirmButton, gbc);
-        getTicketForm();
+        this.ticketForm = getTicketForm();
     }
+
     // Tworzy przycisk służący do przejścia do koszyka
-    //TODO: Dialog z opcją wyboru przejścia do koszyka lub dalszych zakupów
     private JButton getConfirmButton(Event eventData, CardLayout cardLayout, JPanel cardPanel) {
-        JButton confirmButton = new CustomButton("Zatwierdź",AppColors.ACCEPT_COLOR, AppColors.LIGHT_TEXT_COLOR);
+        JButton confirmButton = new CustomButton("Zatwierdź", AppColors.ACCEPT_COLOR, AppColors.LIGHT_TEXT_COLOR);
         confirmButton.addActionListener(e -> {
-            // Jeśli nie ma aktywnego zamówienia to tworzymy nowe
-            if(MainFrame.getClient().getActiveOrder() == null){
-                MainFrame.getClient().createOrder();
+            if (checkIfFormCorrect()) {
+                // Jeśli nie ma aktywnego zamówienia to tworzymy nowe
+                if (MainFrame.getClient().getActiveOrder() == null) {
+                    MainFrame.getClient().createOrder();
+                }
+                String[] options = {"Kontynuuj zakupy", "Koszyk"};
+                int response = JOptionPane.showOptionDialog(this,"Czy chcesz kontynuować zakupy?",
+                        "Czy chcesz kontynuować zakupy?",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                readSelectedData(eventData);
+                if(response == JOptionPane.YES_OPTION) {
+                    cardLayout.show(cardPanel, "listView");
+                }
+                else {
+                    MainFrame.refreshCart();
+                    cardLayout.show(cardPanel, "cartView");
+                }
+
             }
-            readSelectedData(eventData);
-            JPanel cartView = new CartPanel(MainFrame.getClient().getActiveOrder());
-            cardPanel.add(cartView, "cartView");
-            cardLayout.show(cardPanel, "cartView");
+
         });
         return confirmButton;
     }
+
     // Tworzy formularz do wyboru biletów
-    public void getTicketForm() {
+    public ArrayList<ArrayList<JComponent>> getTicketForm() {
+        ArrayList<ArrayList<JComponent>> ticketForm = new ArrayList<>();
         int row = 3;
-        for(int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
             ArrayList<JComponent> ticketComponent = getTicketFormElement();
-            ticketRows.add(ticketComponent);
+            ticketForm.add(ticketComponent);
             gbc.gridy = row;
             gbc.gridx = 0;
-            add(ticketComponent.get(0),gbc);
+            add(ticketComponent.get(0), gbc);
             gbc.gridx = 1;
-            add(ticketComponent.get(1),gbc);
+            add(ticketComponent.get(1), gbc);
             gbc.gridy = row + 1;
             gbc.gridx = 0;
-            add(ticketComponent.get(2),gbc);
+            add(ticketComponent.get(2), gbc);
             gbc.gridx = 1;
-            add(ticketComponent.get(3),gbc);
+            add(ticketComponent.get(3), gbc);
             gbc.gridx = 2;
-            add(ticketComponent.get(4),gbc);
+            add(ticketComponent.get(4), gbc);
             row += 2;
         }
+        return ticketForm;
     }
+
     // Tworzy jeden element do wyboru biletu
-    private ArrayList<JComponent> getTicketFormElement(){
+    private ArrayList<JComponent> getTicketFormElement() {
         CustomComboBox<String> ticketType = new CustomComboBox<>(eventData.getAvailableTicketTypes());
-        JTextField name = new JTextField("Imię");
-        JTextField lastName = new JTextField("Nazwisko");
+        JTextField name = new CustomTextField("Imię");
+        JTextField lastName = new CustomTextField("Nazwisko");
         CustomComboBox<Integer> groupSize = new CustomComboBox<>(eventData.getAvailableGrpSeats());
+        groupSize.setSelectedItem(groupSize.getItemAt(1));
         JLabel price = new CustomLabel("00.00 zł");
-        ArrayList<JComponent> ticketComponent = new ArrayList<>(Arrays.asList(ticketType,price,name,lastName,groupSize));
+        ArrayList<JComponent> ticketComponent = new ArrayList<>(Arrays.asList(ticketType, price, name, lastName,
+                groupSize));
         name.setEnabled(false);
         lastName.setEnabled(false);
         groupSize.setEnabled(false);
@@ -107,32 +129,76 @@ public class BuyPanel extends JPanel {
                 }
             }
         });
-        groupSize.addActionListener(e ->{
-            price.setText((int)groupSize.getSelectedItem()* eventData.getGrpTicketPrice() + "zł");
+        groupSize.addActionListener(e -> {
+            price.setText((int) groupSize.getSelectedItem() * eventData.getGrpTicketPrice() + "zł");
         });
         return ticketComponent;
     }
-    private void readSelectedData(Event data){
-        for (ArrayList<JComponent> ticket : ticketRows){
-            CustomComboBox<String> ticketType = (CustomComboBox<String>)ticket.get(0);
-            String ticketTypeName = ticketType.getSelectedItem().toString();
+
+    // Sprawdza, czy dane zostały wprowadzone do formularza
+    private boolean checkIfFormCorrect() {
+        boolean formCorrect;
+        int nOfTickets = 0;
+        for (ArrayList<JComponent> row : ticketForm) {
+            selectedTicketType selectedTicketType = getSelectedTicketType((CustomComboBox<String>) row.get(0));
+            if (selectedTicketType.equals(BuyPanel.selectedTicketType.NAMED)) {
+                CustomTextField name = (CustomTextField) row.get(2);
+                CustomTextField lastName = (CustomTextField) row.get(3);
+                formCorrect = name.isFilled() && lastName.isFilled();
+                nOfTickets++;
+                if(!formCorrect){
+                    JOptionPane.showMessageDialog(this, "Wypełnij wszystkie pola w formularzu");
+                    return false;
+                }
+            } else if (selectedTicketType.equals(BuyPanel.selectedTicketType.GROUP)) {
+                CustomComboBox<Integer> groupSize = (CustomComboBox<Integer>) row.get(4);
+                formCorrect = (Integer) groupSize.getSelectedItem() > 1;
+                nOfTickets++;
+                if(!formCorrect){
+                    JOptionPane.showMessageDialog(this, "Wypełnij wszystkie pola w formularzu");
+                    return false;
+                }
+            }
+        }
+        if(nOfTickets <1){
+            JOptionPane.showMessageDialog(this, "Wybierz conajmniej jeden bilet");
+            return false;
+        }
+        return true;
+    }
+
+    private selectedTicketType getSelectedTicketType(CustomComboBox<String> ticketType) {
+        String ticketTypeValue = ticketType.getSelectedItem().toString();
+        if (ticketTypeValue.equals("Imienny")) {
+            return selectedTicketType.NAMED;
+        } else if (ticketTypeValue.equals("Grupowy")) {
+            return selectedTicketType.GROUP;
+        }
+        return selectedTicketType.NONE;
+    }
+
+    private void readSelectedData(Event data) {
+        for (ArrayList<JComponent> ticket : ticketForm) {
+            selectedTicketType selectedType = getSelectedTicketType((CustomComboBox<String>) ticket.get(0));
             Client client = MainFrame.getClient();
             Order order = client.getActiveOrder();
-            if (ticketTypeName.equals("Imienny")) {
+            if (selectedType == selectedTicketType.NAMED) {
                 NamedTicket selectedTicket = (NamedTicket) data.findFirstAvailableTicket();
+                JTextField name = (CustomTextField) ticket.get(2);
+                JTextField lastName = (CustomTextField) ticket.get(3);
+                String nameValue = name.getText();
+                String lastNameValue = lastName.getText();
                 selectedTicket.setStatus(Ticket.statusEnum.RESERVED);
-                selectedTicket.setFirstName(client.getFirstName());
-                selectedTicket.setLastName(client.getLastName());
+                selectedTicket.setFirstName(nameValue);
+                selectedTicket.setLastName(lastNameValue);
                 order.addTicket(selectedTicket);
-            }
-            else if (ticketTypeName.equals("Grupowy")) {
-                CustomComboBox<Integer> groupSize = (CustomComboBox<Integer>)ticket.get(4);
+            } else if (selectedType == selectedTicketType.GROUP) {
+                CustomComboBox<Integer> groupSize = (CustomComboBox<Integer>) ticket.get(4);
                 Integer groupSizeValue = (Integer) groupSize.getSelectedItem();
 
                 GroupTicket selectedTicket = data.generateGroupTicket(groupSizeValue);
                 order.addTicket(selectedTicket);
             }
-
 
 
         }

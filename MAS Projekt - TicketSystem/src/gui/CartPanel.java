@@ -7,14 +7,14 @@ import model.NamedTicket;
 import model.Order;
 import model.Ticket;
 
-import javax.naming.Name;
 import javax.swing.*;
 import java.awt.*;
 
 public class CartPanel extends JPanel {
     private final GridBagConstraints gbc;
     private int row = 0;
-    public CartPanel(Order orderData) {
+    private final Order orderData = MainFrame.getClient().getActiveOrder();
+    public CartPanel() {
         setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -31,9 +31,18 @@ public class CartPanel extends JPanel {
         gbc.gridx = 3;
         add(new CustomLabel("Cena"), gbc);
         loadData(orderData);
-        gbc.gridy = row;
-        add(new CustomLabel("Suma: "+orderData.getTotalPrice()+ " zł", 24,false),gbc);
         //TODO: Wybór rabatu i refresh
+    }
+    public void refresh(){
+        for(Component c: getComponents()){
+            GridBagConstraints constraints = ((GridBagLayout)getLayout()).getConstraints(c);
+            if(constraints.gridy >= 2){
+                remove(c);
+            }
+        }
+        revalidate();
+        repaint();
+        loadData(orderData);
     }
     private void loadData(Order orderData){
         row = 2;
@@ -55,10 +64,15 @@ public class CartPanel extends JPanel {
             gbc.gridx = 3;
             add(new CustomLabel(ticket.getPrice() + " zł"), gbc);
             gbc.gridx = 4;
-            //TODO: Usuwanie biletów z zamówienia i refresh koszyka
             JButton deleteButton = new CustomButton("Usuń", AppColors.ACCENT_COLOR,AppColors.LIGHT_TEXT_COLOR);
+            deleteButton.addActionListener(_ -> {
+               orderData.removeTicket(ticket);
+               refresh();
+            });
             add(deleteButton, gbc);
             row ++;
         }
+        gbc.gridy = row;
+        add(new CustomLabel("Suma: "+orderData.getTotalPrice()+ " zł", 24,false),gbc);
     }
 }

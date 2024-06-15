@@ -40,6 +40,9 @@ public class Client extends DataModel {
     }
 
     public Order getActiveOrder() {
+        if(activeOrder == null){
+            activeOrder = new Order(LocalDateTime.now(), this);
+        }
         return activeOrder;
     }
 

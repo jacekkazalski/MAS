@@ -18,9 +18,10 @@ public class NavigationPanel extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         JLabel title = new CustomLabel("TicketShop", 24,true);
         add(title);
-        add(createNavButton("Wydarzenia", "ListView"));
-        add(createNavButton("Artyści", "ListView"));
-        add(createNavButton("Logowanie", "ListView"));
+        add(createNavButton("Wydarzenia", "listView"));
+        add(createNavButton("Artyści", "artistView"));
+        add(createNavButton("Logowanie", "loginView"));
+        add(createNavButton("Koszyk", "cartView"));
 
     }
     private JButton createNavButton(String text, String cardName) {

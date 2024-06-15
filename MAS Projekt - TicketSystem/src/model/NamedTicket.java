@@ -27,4 +27,9 @@ public class NamedTicket extends Ticket {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+    @Override
+    public String getInfo() {
+        return super.getInfo() + "  " + firstName + " " + lastName+"}";
+    }
 }

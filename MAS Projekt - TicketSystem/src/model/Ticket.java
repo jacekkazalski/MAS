@@ -45,6 +45,6 @@ public abstract class Ticket extends DataModel{
 
     @Override
     public String getInfo() {
-        return "";
+        return "  {Ticket id: "+getObjectId()+ " price: "+ price + " " + getEvent().getName() + "\n";
     }
 }

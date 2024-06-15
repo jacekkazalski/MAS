@@ -6,14 +6,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 //TODO: Custom combo box styling
-//TODO: Custom input box
 //TODO: Ogólnie upiększyć xd
 public class MainFrame extends JFrame {
     private final CardLayout cardLayout;
     private final JPanel cardPanel;
     private static Client client;
+    private static CartPanel cartView;
+    private static ListPanel listView;
 
     public MainFrame(Set<DataModel> data) {
         setTitle("Ticket System");
@@ -30,9 +34,11 @@ public class MainFrame extends JFrame {
         wrapperPanel.add(cardPanel, BorderLayout.EAST);
         mainPanel.add(wrapperPanel, BorderLayout.NORTH);
 
-        JPanel listView = new ListPanel(data, cardLayout, cardPanel);
+        listView = new ListPanel(data, cardLayout, cardPanel);
+        cartView = new CartPanel();
         // Dodawanie widoków
-        cardPanel.add(listView, "ListView");
+        cardPanel.add(listView, "listView");
+        cardPanel.add(cartView, "cartView");
         // Panel nawigacji
         JPanel navPanel = new NavigationPanel(cardLayout, cardPanel);
 
@@ -41,7 +47,7 @@ public class MainFrame extends JFrame {
         splitPane.setEnabled(false);
 
         getContentPane().add(splitPane, BorderLayout.CENTER);
-        cardLayout.show(cardPanel, "ListView");
+        cardLayout.show(cardPanel, "listView");
 
     }
 
@@ -63,6 +69,9 @@ public class MainFrame extends JFrame {
         JFrame gui = new MainFrame(DataModel.getExtent());
         gui.setVisible(true);
     }
+    public static  void refreshCart(){
+        cartView.refresh();
+    }
     public void generateData(){
 
     }
@@ -70,4 +79,6 @@ public class MainFrame extends JFrame {
     public static Client getClient() {
         return client;
     }
+
+
 }

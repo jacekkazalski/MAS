@@ -15,4 +15,9 @@ public class GroupTicket extends Ticket {
     public void setNumberOfPeople(int numberOfPeople) {
         this.numberOfPeople = numberOfPeople;
     }
+
+    @Override
+    public String getInfo() {
+        return super.getInfo() + "  Number of people: " + numberOfPeople+"}";
+    }
 }

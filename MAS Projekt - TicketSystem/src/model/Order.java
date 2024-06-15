@@ -20,9 +20,11 @@ public class Order extends DataModel{
     public void addTicket(Ticket ticket) {
         ticket.setOrder(this);
         tickets.add(ticket);
+        System.out.println(getInfo());
     }
     public void removeTicket(Ticket ticket) {
         tickets.remove(ticket);
+        System.out.println(getInfo());
     }
     public void applyDiscount(Discount discount) {
         this.discount = discount;
@@ -59,7 +61,12 @@ public class Order extends DataModel{
 
     @Override
     public String getInfo() {
-        return "";
+        StringBuilder info = new StringBuilder("Order " + getObjectId() +" by " + client.getFirstName() + " " +
+                client.getLastName() + "\n" + "Total price: " + getTotalPrice() + "\n");
+        for (Ticket ticket : tickets) {
+            info.append(ticket.getInfo()).append("\n");
+        }
+        return info.toString();
     }
 
 }
