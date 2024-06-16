@@ -7,11 +7,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Client extends DataModel {
+    private final ArrayList<Discount> discounts = new ArrayList<>();
+    private final Set<Order> orders = new HashSet<>();
     private String firstName;
     private String lastName;
     private String email;
-    private final ArrayList<Discount> discounts = new ArrayList<>();
-    private final Set<Order> orders = new HashSet<>();
     private Order activeOrder;
 
     public Client(String firstName, String lastName, String email) {
@@ -19,15 +19,18 @@ public class Client extends DataModel {
         this.lastName = lastName;
         this.email = email;
     }
-    public void createOrder(){
+
+    public void createOrder() {
         Order order = new Order(LocalDateTime.now(), this);
         activeOrder = order;
         orders.add(order);
     }
-    public void addDiscount(double percentOff, double discount, LocalDate validFrom, LocalDate validTo){
+
+    public void addDiscount(double percentOff, double discount, LocalDate validFrom, LocalDate validTo) {
         this.discounts.add(new Discount(percentOff, discount, validFrom, validTo));
     }
-    public void removeDiscount(Discount discount){
+
+    public void removeDiscount(Discount discount) {
         this.discounts.remove(discount);
     }
 
@@ -40,7 +43,7 @@ public class Client extends DataModel {
     }
 
     public Order getActiveOrder() {
-        if(activeOrder == null){
+        if (activeOrder == null) {
             activeOrder = new Order(LocalDateTime.now(), this);
         }
         return activeOrder;

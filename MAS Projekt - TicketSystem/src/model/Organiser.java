@@ -4,12 +4,12 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Organiser extends DataModel{
+public class Organiser extends DataModel {
+    private final Set<Event> events = new HashSet<>();
     private String name;
     private String phoneNumber;
     private String email;
     private String address;
-    private final Set<Event> events = new HashSet<Event>();
 
     public Organiser(String name, String phoneNumber, String email, String address) {
         this.name = name;
@@ -17,7 +17,9 @@ public class Organiser extends DataModel{
         this.email = email;
         this.address = address;
     }
-    public void organiseEvent(String name, LocalDate startDate, LocalDate endDate, Venue venue, EventCategory eventCategory){
+    // Tworzy wydarzenie o wybranych parametrach
+    public void organiseEvent(String name, LocalDate startDate, LocalDate endDate, Venue venue,
+                              EventCategory eventCategory) {
         Event event = new Event(name, startDate, endDate, venue, eventCategory);
         events.add(event);
     }

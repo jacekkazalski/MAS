@@ -3,14 +3,11 @@ package model;
 import java.util.Date;
 
 public class Payment extends DataModel {
+    private final Order order;
     private double amount;
     private Date paymentDate;
-    public enum paymentMethodEnum{CARD, ONLINE_TRANSFER, BLIK}
-    public enum paymentStatusEnum{STARTED, PAID, CANCELLED}
     private paymentMethodEnum paymentMethod;
     private paymentStatusEnum paymentStatus = paymentStatusEnum.STARTED;
-    private final Order order;
-
     public Payment(Order order, double amount, Date paymentDate, paymentMethodEnum paymentMethod) {
         this.amount = amount;
         this.paymentDate = paymentDate;
@@ -54,5 +51,9 @@ public class Payment extends DataModel {
     public String getInfo() {
         return "";
     }
+
+    public enum paymentMethodEnum {CARD, ONLINE_TRANSFER, BLIK}
+
+    public enum paymentStatusEnum {STARTED, PAID, CANCELLED}
 
 }

@@ -6,6 +6,7 @@ public class EventArtist {
     private Artist artist;
     private Event event;
     private LocalDateTime showTime;
+
     protected EventArtist(Artist artist, Event event, LocalDateTime showTime) {
         this.artist = artist;
         this.event = event;

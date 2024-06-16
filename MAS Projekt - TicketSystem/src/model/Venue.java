@@ -1,6 +1,6 @@
 package model;
 
-public class Venue extends DataModel{
+public class Venue extends DataModel {
     private int maxCapacity;
     private String name;
     private String address;
@@ -10,6 +10,7 @@ public class Venue extends DataModel{
         this.name = name;
         this.address = address;
     }
+
     public int getMaxCapacity() {
         return maxCapacity;
     }

@@ -6,13 +6,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Event extends DataModel {
-    private String name;
-    private LocalDate startDate;
-    private LocalDate endDate;
     private final Set<Ticket> tickets = new HashSet<>();
     private final Set<EventCategory> eventCategories = new HashSet<>();
     private final Set<EventArtist> shows = new HashSet<>();
     private final Venue venue;
+    private String name;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private int availableGrpSeats = 0;
     private double ticketPrice = 0;
     private double grpTicketPrice = 0;
@@ -25,23 +25,27 @@ public class Event extends DataModel {
         this.eventCategories.add(eventCategory);
         eventCategory.addEvent(this);
     }
+
     public void addNamedTicket(double price, String firstName, String lastName) {
-        tickets.add(new NamedTicket(price, firstName, lastName ));
+        tickets.add(new NamedTicket(price, firstName, lastName));
     }
+
     public void addGroupTicket(double price, int numberOfPeople) {
         tickets.add(new GroupTicket(price, numberOfPeople));
     }
+
     public void addShow(Artist artist, LocalDateTime showTime) {
         this.shows.add(new EventArtist(artist, this, showTime));
     }
+
     /* Generuje bilety z uwzględnieniem wybranej lokalizacji oraz odkłada wybrany procent miejsc na bilety grupowe.
         Ilość miejsc zostaje zapisana, cena biletu grupowego na osobę = cena * 0,8 */
-    public void generateTicketsForVenue(double groupPercent, double ticketPrice){
+    public void generateTicketsForVenue(double groupPercent, double ticketPrice) {
         int allTickets = venue.getMaxCapacity();
-        int groupTickets = (int)(allTickets * groupPercent)/100;
+        int groupTickets = (int) (allTickets * groupPercent) / 100;
         int namedTickets = allTickets - groupTickets;
         System.out.println(namedTickets);
-        for( int i = 0; i < namedTickets; i++) {
+        for (int i = 0; i < namedTickets; i++) {
             Ticket ticket = new NamedTicket(ticketPrice);
             ticket.setEvent(this);
             tickets.add(ticket);
@@ -51,21 +55,24 @@ public class Event extends DataModel {
         this.ticketPrice = ticketPrice;
         grpTicketPrice = ticketPrice * 0.8;
     }
-    public GroupTicket generateGroupTicket(int groupSize){
-        GroupTicket ticket = new GroupTicket(grpTicketPrice*groupSize, groupSize);
+    // Generuje bilet grupowy dla wybranej liczby osób
+    public GroupTicket generateGroupTicket(int groupSize) {
+        GroupTicket ticket = new GroupTicket(grpTicketPrice * groupSize, groupSize);
         ticket.setEvent(this);
         tickets.add(ticket);
         return ticket;
     }
+    // Zwraca pierwszy dostępny bilet dla zamówienia
     public Ticket findFirstAvailableTicket() {
         for (Ticket ticket : tickets) {
-            if(ticket.getStatus() == Ticket.statusEnum.AVAILABLE) {
+            if (ticket.getStatus() == Ticket.statusEnum.AVAILABLE) {
                 return ticket;
             }
         }
         return null;
     }
-    // Max liczba osób na bilecie grupowym to 6
+
+    // Zwraca liczbę dostępnych miejsc dla pojedyńczego biletu grupowego -> Max liczba osób na bilecie grupowym to 6
     public Integer[] getAvailableGrpSeats() {
         int maxSeats = Math.min(availableGrpSeats, 6);
         Integer[] seats = new Integer[maxSeats];
@@ -75,10 +82,11 @@ public class Event extends DataModel {
 
         return seats;
     }
+
     // Zwraca wartości typów biletów dla combobox przy zakupie
     public String[] getAvailableTicketTypes() {
         String[] types;
-        if(!tickets.stream().map(Ticket::getStatus).toList().contains(Ticket.statusEnum.AVAILABLE)){
+        if (!tickets.stream().map(Ticket::getStatus).toList().contains(Ticket.statusEnum.AVAILABLE)) {
             types = new String[]{"Brak dostępnych biletów"};
         } else if (availableGrpSeats < 1) {
             types = new String[]{"Wybierz rodzaj biletu", "Imienny"};
@@ -87,9 +95,11 @@ public class Event extends DataModel {
         }
         return types;
     }
+
     public double getGrpTicketPrice() {
         return grpTicketPrice;
     }
+
     public String getName() {
         return name;
     }
@@ -106,6 +116,10 @@ public class Event extends DataModel {
         return startDate;
     }
 
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
     public Set<Ticket> getTickets() {
         return tickets;
     }
@@ -120,10 +134,6 @@ public class Event extends DataModel {
 
     public Venue getVenue() {
         return venue;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
     }
 
     public LocalDate getEndDate() {

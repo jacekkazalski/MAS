@@ -9,7 +9,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
 public class CustomTextField extends JTextField implements FocusListener {
-    private String placeholder;
+    private final String placeholder;
     public CustomTextField(String placeholder) {
         this.placeholder = placeholder;
         setText(placeholder);
@@ -24,11 +24,9 @@ public class CustomTextField extends JTextField implements FocusListener {
         setBorder(border);
         addFocusListener(this);
     }
+    // Sprawdza, czy wszystkie pola mają niedomyślne wartości
     public boolean isFilled() {
-        if(getText().isEmpty() || getText().equals(placeholder)) {
-            return false;
-        }
-        return true;
+        return !getText().isBlank() && !getText().equals(placeholder);
     }
 
     @Override
@@ -41,9 +39,14 @@ public class CustomTextField extends JTextField implements FocusListener {
 
     @Override
     public void focusLost(FocusEvent e) {
-        if (getText().isEmpty()) {
+        if (getText().isBlank()) {
             setText(placeholder);
             setForeground(Color.DARK_GRAY);
         }
+    }
+
+    @Override
+    public Insets getInsets() {
+        return new Insets(5, 5, 5, 5);
     }
 }

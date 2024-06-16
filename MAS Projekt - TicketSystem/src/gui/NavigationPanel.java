@@ -16,13 +16,13 @@ public class NavigationPanel extends JPanel {
         this.cardPanel = cardPanel;
         setBackground(AppColors.LIGHT_TEXT_COLOR);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        JLabel title = new CustomLabel("TicketShop", 24,true);
+        JLabel title = new CustomLabel("TicketShop", 24, true, true);
         add(title);
         add(createNavButton("Wydarzenia", "listView"));
         add(createNavButton("Artyści", "artistView"));
         add(createNavButton("Logowanie", "loginView"));
         add(createNavButton("Koszyk", "cartView"));
-
+        add(createNavButton("Test", "buyView"));
     }
     private JButton createNavButton(String text, String cardName) {
         JButton navButton = new CustomButton(text,AppColors.LIGHT_TEXT_COLOR, AppColors.DARK_TEXT_COLOR);

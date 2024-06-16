@@ -5,8 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class EventCategory extends DataModel {
+    private final Set<Event> eventSet = new HashSet<>();
     private String categoryName;
-    private final Set<Event> eventSet = new HashSet<Event>();
 
     public EventCategory(String categoryName) {
         this.categoryName = categoryName;
@@ -19,9 +19,11 @@ public class EventCategory extends DataModel {
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
+
     public void addEvent(Event event) {
         eventSet.add(event);
     }
+
     public void removeEvent(Event event) {
         eventSet.remove(event);
     }

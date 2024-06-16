@@ -18,6 +18,6 @@ public class GroupTicket extends Ticket {
 
     @Override
     public String getInfo() {
-        return super.getInfo() + "  Number of people: " + numberOfPeople+"}";
+        return super.getInfo() + "  Number of people: " + numberOfPeople + "}";
     }
 }

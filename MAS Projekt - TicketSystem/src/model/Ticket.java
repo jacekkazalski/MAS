@@ -1,12 +1,11 @@
 package model;
 
-public abstract class Ticket extends DataModel{
+public abstract class Ticket extends DataModel {
+    public enum statusEnum {AVAILABLE, RESERVED, SOLD}
     private double price;
-    public enum statusEnum{AVAILABLE, RESERVED, SOLD}
     private statusEnum status = statusEnum.AVAILABLE;
     private Order order;
     private Event event;
-
     protected Ticket(double price) {
         this.price = price;
     }
@@ -45,6 +44,6 @@ public abstract class Ticket extends DataModel{
 
     @Override
     public String getInfo() {
-        return "  {Ticket id: "+getObjectId()+ " price: "+ price + " " + getEvent().getName() + "\n";
+        return "  {Ticket id: " + getObjectId() + " price: " + price + " " + getEvent().getName() + "\n";
     }
 }

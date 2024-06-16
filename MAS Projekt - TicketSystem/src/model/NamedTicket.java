@@ -3,11 +3,13 @@ package model;
 public class NamedTicket extends Ticket {
     private String firstName;
     private String lastName;
-    public NamedTicket(double price){
+
+    public NamedTicket(double price) {
         super(price);
     }
-    public NamedTicket( double price, String firstName, String lastName) {
-        super (price);
+
+    public NamedTicket(double price, String firstName, String lastName) {
+        super(price);
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -30,6 +32,6 @@ public class NamedTicket extends Ticket {
 
     @Override
     public String getInfo() {
-        return super.getInfo() + "  " + firstName + " " + lastName+"}";
+        return super.getInfo() + "  " + firstName + " " + lastName + "}";
     }
 }

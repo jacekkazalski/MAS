@@ -10,18 +10,21 @@ import model.Ticket;
 import javax.swing.*;
 import java.awt.*;
 
-public class CartPanel extends JPanel {
-    private final GridBagConstraints gbc;
-    private int row = 0;
-    private final Order orderData = MainFrame.getClient().getActiveOrder();
-    public CartPanel() {
-        setLayout(new GridBagLayout());
-        gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+public class CartView extends CustomView {
+    private Order order;
+    public CartView() {
+        super();
+        //TODO: Wybór rabatu i refresh
+    }
+
+    @Override
+    protected void drawComponents() {
+        removeAll();
+        gbc.weightx = 1.0;
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.gridx = 0;
         gbc.gridy = 0;
-        add(new CustomLabel("Koszyk", 24, true), gbc);
+        add(new CustomLabel("Koszyk", 24, true, false), gbc);
         gbc.gridy = 1;
         add(new CustomLabel("Wydarzenie"), gbc);
         gbc.gridx = 1;
@@ -30,23 +33,14 @@ public class CartPanel extends JPanel {
         add(new CustomLabel("Informacje"), gbc);
         gbc.gridx = 3;
         add(new CustomLabel("Cena"), gbc);
-        loadData(orderData);
-        //TODO: Wybór rabatu i refresh
+        this.order =
+                (Order) getData().stream().filter(dataModel -> dataModel.getObjectId() == getDataId()).findFirst().orElse(null);
+        drawTickets(order);
     }
-    public void refresh(){
-        for(Component c: getComponents()){
-            GridBagConstraints constraints = ((GridBagLayout)getLayout()).getConstraints(c);
-            if(constraints.gridy >= 2){
-                remove(c);
-            }
-        }
-        revalidate();
-        repaint();
-        loadData(orderData);
-    }
-    private void loadData(Order orderData){
-        row = 2;
-        for(Ticket ticket : orderData.getTickets()){
+
+    private void drawTickets(Order order) {
+        int row = 2;
+        for (Ticket ticket : order.getTickets()) {
             gbc.gridy = row;
             gbc.gridx = 0;
             add(new CustomLabel(ticket.getEvent().getName()), gbc);
@@ -66,13 +60,16 @@ public class CartPanel extends JPanel {
             gbc.gridx = 4;
             JButton deleteButton = new CustomButton("Usuń", AppColors.ACCENT_COLOR,AppColors.LIGHT_TEXT_COLOR);
             deleteButton.addActionListener(_ -> {
-               orderData.removeTicket(ticket);
-               refresh();
+                order.removeTicket(ticket);
+                reloadView(data);
             });
             add(deleteButton, gbc);
-            row ++;
+            row++;
         }
         gbc.gridy = row;
-        add(new CustomLabel("Suma: "+orderData.getTotalPrice()+ " zł", 24,false),gbc);
+        add(new CustomLabel("Suma: " + order.getTotalPrice() + " zł", 24, false, false), gbc);
+        gbc.gridx = 0;
+        gbc.gridy = row + 1;
+        add(new CustomButton("Zapłać", AppColors.ACCEPT_COLOR, AppColors.LIGHT_TEXT_COLOR), gbc);
     }
 }

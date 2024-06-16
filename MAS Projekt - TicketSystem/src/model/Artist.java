@@ -3,9 +3,9 @@ package model;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Artist extends DataModel{
-    private String name;
+public class Artist extends DataModel {
     private final Set<EventArtist> shows = new HashSet<>();
+    private String name;
 
     public Artist(String name) {
         this.name = name;
@@ -18,6 +18,7 @@ public class Artist extends DataModel{
     public void setName(String name) {
         this.name = name;
     }
+
     public void addShow(EventArtist show) {
         shows.add(show);
     }

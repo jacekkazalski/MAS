@@ -13,12 +13,5 @@ public class CustomButton extends JButton {
     }
     private void initialize() {
         setFont(new Font("Arial", Font.PLAIN, 16));
-        setFocusPainted(false);
-    }
-    public void setCustomBackground(Color background) {
-        setBackground(background);
-    }
-    public void setCustomForeground(Color foreground) {
-        setForeground(foreground);
     }
 }
