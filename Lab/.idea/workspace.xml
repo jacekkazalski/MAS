@@ -9,13 +9,16 @@
   <component name="ChangeListManager">
     <list default="true" id="dba5fdf4-5c3f-412e-a236-d55970c46baf" name="Changes" comment="mp4 all except xor">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extent.json" beforeDir="false" afterPath="$PROJECT_DIR$/extent.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MAS Projekt - TicketSystem/src/gui/BuyView.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MAS Projekt - TicketSystem/src/gui/BuyView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MAS Projekt - TicketSystem/src/gui/CartView.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MAS Projekt - TicketSystem/src/gui/CartView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MAS Projekt - TicketSystem/src/gui/CustomView.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MAS Projekt - TicketSystem/src/gui/CustomView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MAS Projekt - TicketSystem/src/gui/DetailsView.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MAS Projekt - TicketSystem/src/gui/DetailsView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MAS Projekt - TicketSystem/src/gui/ListView.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MAS Projekt - TicketSystem/src/gui/ListView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../MAS Projekt - TicketSystem/src/gui/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MAS Projekt - TicketSystem/src/gui/MainFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MAS Projekt - TicketSystem/src/model/DataModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MAS Projekt - TicketSystem/src/model/DataModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MAS Projekt - TicketSystem/src/model/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MAS Projekt - TicketSystem/src/model/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MAS Projekt - TicketSystem/src/model/Discount.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MAS Projekt - TicketSystem/src/model/Discount.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../MAS Projekt - TicketSystem/src/model/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MAS Projekt - TicketSystem/src/model/Event.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MAS Projekt - TicketSystem/src/model/EventArtist.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MAS Projekt - TicketSystem/src/model/EventArtist.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../MAS Projekt - TicketSystem/src/model/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MAS Projekt - TicketSystem/src/model/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MAS Projekt - TicketSystem/src/model/Organiser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MAS Projekt - TicketSystem/src/model/Organiser.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

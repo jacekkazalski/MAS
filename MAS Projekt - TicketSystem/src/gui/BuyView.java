@@ -37,7 +37,7 @@ public class BuyView extends CustomView {
         add(new CustomLabel(event.getName(), 30, true, false), gbc);
         gbc.gridwidth = 1;
         gbc.gridy = 1;
-        add(new CustomLabel(event.getStartDate().toString(), 24, true, true), gbc);
+        add(new CustomLabel(event.getEventDate().toString(), 24, true, true), gbc);
         gbc.gridy = 2;
         JButton confirmButton = getConfirmButton(event);
         add(confirmButton, gbc);

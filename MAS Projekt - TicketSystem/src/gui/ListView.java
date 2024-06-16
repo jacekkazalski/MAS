@@ -32,7 +32,7 @@ public class ListView extends CustomView {
                 gbc.gridx = 0;
                 add(new CustomLabel(event.getName()), gbc);
                 gbc.gridx = 1;
-                add(new CustomLabel(event.getStartDate().toString()), gbc);
+                add(new CustomLabel(event.getEventDate().toString()), gbc);
                 gbc.gridx = 2;
                 JButton detailsButton = getDetailsButton(event);
                 add(detailsButton, gbc);

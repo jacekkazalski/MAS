@@ -1,25 +1,24 @@
 package gui;
 
 import gui.components.CustomButton;
+import gui.components.CustomComboBox;
 import gui.components.CustomLabel;
-import model.GroupTicket;
-import model.NamedTicket;
-import model.Order;
-import model.Ticket;
+import model.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class CartView extends CustomView {
     private Order order;
     public CartView() {
         super();
-        //TODO: Wybór rabatu i refresh
     }
-
-    @Override
-    protected void drawComponents() {
-        removeAll();
+    public void initialize(){
         gbc.weightx = 1.0;
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.gridx = 0;
@@ -33,6 +32,11 @@ public class CartView extends CustomView {
         add(new CustomLabel("Informacje"), gbc);
         gbc.gridx = 3;
         add(new CustomLabel("Cena"), gbc);
+    }
+    @Override
+    protected void drawComponents() {
+        removeAll();
+        initialize();
         this.order =
                 (Order) getData().stream().filter(dataModel -> dataModel.getObjectId() == getDataId()).findFirst().orElse(null);
         drawTickets(order);
@@ -71,5 +75,36 @@ public class CartView extends CustomView {
         gbc.gridx = 0;
         gbc.gridy = row + 1;
         add(new CustomButton("Zapłać", AppColors.ACCEPT_COLOR, AppColors.LIGHT_TEXT_COLOR), gbc);
+        drawDiscountCombo(row);
+
+    }
+    private void drawDiscountCombo(int row){
+        gbc.gridy = row +1;
+        gbc.gridx = 1;
+        Map<String, Discount> discounts = new LinkedHashMap<>();
+        discounts.put("Wybierz rabat", new Discount(0,0, LocalDate.now(), LocalDate.now()));
+        for(Discount discount : order.getClient().getDiscounts()) {
+            discounts.put(discount.getInfo(), discount);
+        }
+        CustomComboBox<String> discountCombo = new CustomComboBox<>(discounts.keySet().toArray(new String[0]));
+        for (Map.Entry<String, Discount> entry : discounts.entrySet()) {
+            if(entry.getValue().equals(order.getDiscount())) {
+                discountCombo.setSelectedItem(entry.getKey());
+                break;
+            }
+        }
+        discountCombo.addActionListener(e -> {
+            String selectedDiscount = (String) discountCombo.getSelectedItem();
+            Discount discount = discounts.get(selectedDiscount);
+            if (order.getTotalPrice() > discount.getMinOrderValue()) {
+                order.applyDiscount(discount);
+                reloadView(data);
+            }
+            else {
+                JOptionPane.showMessageDialog(this, "Kwota zamówienia jest zbyt niska");
+                discountCombo.setSelectedItem("Wybierz rabat");
+            }
+        });
+        add(discountCombo, gbc);
     }
 }

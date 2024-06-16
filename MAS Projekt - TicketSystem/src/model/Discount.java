@@ -2,13 +2,14 @@ package model;
 
 import java.time.LocalDate;
 
-public class Discount {
+public class Discount extends DataModel {
     private double percentOff;
     private double minOrderValue;
     private LocalDate validFrom;
     private LocalDate validTo;
 
     public Discount(double percentOff, double minOrderValue, LocalDate validFrom, LocalDate validTo) {
+        super();
         this.percentOff = percentOff;
         this.minOrderValue = minOrderValue;
         this.validFrom = validFrom;
@@ -45,5 +46,10 @@ public class Discount {
 
     public void setValidTo(LocalDate validTo) {
         this.validTo = validTo;
+    }
+
+    @Override
+    public String getInfo() {
+        return percentOff + "% od " + minOrderValue + "zł";
     }
 }

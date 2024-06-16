@@ -1,6 +1,7 @@
 package gui;
 
 import model.*;
+import model.Event;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +11,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-//TODO: Ogólnie upiększyć xd
 public class MainFrame extends JFrame {
     private final static CardLayout cardLayout = new CardLayout();
     private final static JPanel cardPanel = new JPanel(cardLayout);
@@ -28,12 +28,8 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         JPanel mainPanel = new JPanel(new BorderLayout());
-        JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 10));
-        wrapper.setBackground(Color.BLUE);
         mainPanel.setBackground(Color.YELLOW);
-        wrapper.add(cardPanel, BorderLayout.EAST);
         mainPanel.add(cardPanel, BorderLayout.CENTER);
-
 
         // Dodawanie widoków
         listView = new ListView();
@@ -53,7 +49,7 @@ public class MainFrame extends JFrame {
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, navPanel, mainPanel);
         splitPane.setDividerLocation(200);
         splitPane.setEnabled(false);
-
+        cartView.initialize();
         getContentPane().add(splitPane, BorderLayout.CENTER);
         switchToListView();
     }
@@ -90,6 +86,7 @@ public class MainFrame extends JFrame {
     }
     public static void main(String[] args) {
         // Wczytywanie ekstensji
+
         String path = "data/extent.ser";
         try {
             DataModel.readExtent(new ObjectInputStream(new FileInputStream(path)));
@@ -124,6 +121,8 @@ public class MainFrame extends JFrame {
     // Wczytywanie klienta jako obecnego użytkownika
     public static void loadClient(){
         client = (Client) data.stream().filter(dataModel -> dataModel instanceof Client).findFirst().orElse(null);
+        client.addDiscount(20,200,LocalDate.of(2023,1,1),LocalDate.of(2025,1,1));
+        client.addDiscount(5,100,LocalDate.of(2023,1,1),LocalDate.of(2025,1,1));
     }
     // Tworzenie przykładowych danych
     public static void generateData() {
@@ -134,17 +133,40 @@ public class MainFrame extends JFrame {
                 "Warszawa");
         Venue venue = new Venue(2000, "Klub Szopa", "Koncertowa 12 00-000 Warszawa");
         Artist kombi = new Artist("Kombi");
-        LocalDateTime time = LocalDateTime.now();
-        LocalDateTime time2 = LocalDateTime.of(2024, 7, 22, 18, 0);
-        LocalDateTime time3 = LocalDateTime.of(2024, 7, 22, 20, 0);
+        Artist kult = new Artist("Kult");
+        Artist ladyPank = new Artist("Lady Pank");
+        Artist pullthewire = new Artist("Pull The Wire");
+        Artist metallica = new Artist("Metallica");
+        Artist ghost = new Artist("Ghost");
+        LocalDateTime timeSep = LocalDateTime.of(2024, 9, 22, 18, 0);
+        LocalDateTime timeSep2 = LocalDateTime.of(2024, 9, 22, 20, 0);
+        LocalDateTime timeSep3 = LocalDateTime.of(2024, 9,20,18,0);
+        LocalDateTime timeSep4 = LocalDateTime.of(2024, 9,21,18,0);
+        LocalDateTime timeAug = LocalDateTime.of(2024, 8, 3, 18, 0);
+        LocalDateTime timeAug2 = LocalDateTime.of(2024, 8, 3, 20, 0);
+        organiser.organiseEvent("Juwenalia", LocalDate.of(2024, 9, 20), LocalDate.of(2024, 9, 22), venue,
+                concertCategory);
+        organiser.organiseEvent("Super koncert", LocalDate.of(2024, 8, 3), LocalDate.of(2024, 8, 3), venue,
+                concertCategory);
 
-        organiser.organiseEvent("Super koncert", LocalDate.of(2024, 7, 22), LocalDate.of(2024, 9, 23), venue,
-                concertCategory);
-        organiser.organiseEvent("Juwenalia", LocalDate.of(2025, 5, 21), LocalDate.of(2025, 5, 23), venue,
-                concertCategory);
-        organiser.getEvents().stream().findAny().ifPresent(event -> event.addShow(kombi, LocalDateTime.of(2024, 7, 22
-                , 18, 0)));
-        organiser.getEvents().stream().findFirst().ifPresent(event -> event.generateTicketsForVenue(20, 100));
+        boolean switcher = false;
+        for (Event event : organiser.getEvents()) {
+            if(switcher){
+                event.addShow(kombi, timeSep);
+                event.addShow(kult, timeSep2);
+                event.addShow(ladyPank, timeSep3);
+                event.addShow(pullthewire, timeSep4);
+                event.generateTicketsForVenue(20, 50);
+                switcher = false;
+            }
+            else {
+                event.addShow(ghost, timeAug);
+                event.addShow(metallica, timeAug2);
+                event.generateTicketsForVenue(0, 300);
+                switcher = true;
+            }
+
+        }
 
     }
 

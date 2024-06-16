@@ -2,6 +2,7 @@ package model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,7 +36,13 @@ public class Event extends DataModel {
     }
 
     public void addShow(Artist artist, LocalDateTime showTime) {
-        this.shows.add(new EventArtist(artist, this, showTime));
+        if (showTime.isAfter(startDate.atStartOfDay()) && showTime.isBefore(endDate.plusDays(1).atStartOfDay())) {
+            this.shows.add(new EventArtist(artist, this, showTime));
+        }
+        else {
+            System.out.println("Data koncertu"+ artist.getName()+name+" nie mieści się w terminie wydarzenia");
+        }
+
     }
 
     /* Generuje bilety z uwzględnieniem wybranej lokalizacji oraz odkłada wybrany procent miejsc na bilety grupowe.
@@ -109,9 +116,30 @@ public class Event extends DataModel {
     public double getTicketPrice() {
         return ticketPrice;
     }
-
-    public LocalDate getStartDate() {
-        return startDate;
+    // Zwraca datę wydarzenia w postaci string
+    public String getEventDate() {
+        if(startDate.equals(endDate)) {
+            return startDate.toString();
+        }
+        else {
+            return startDate.toString() + " - " + endDate.toString();
+        }
+    }
+    // Zwraca listę dat od początku do końca wydarzenia
+    public ArrayList<LocalDate> getDates() {
+        ArrayList<LocalDate> dates = new ArrayList<>();
+        if(startDate.equals(endDate)) {
+            dates.add(startDate);
+            return dates;
+        }
+        else {
+            LocalDate currentDate = startDate;
+            while(!currentDate.isAfter(endDate)) {
+                dates.add(currentDate);
+                currentDate = currentDate.plusDays(1);
+            }
+            return dates;
+        }
     }
 
     public void setStartDate(LocalDate startDate) {

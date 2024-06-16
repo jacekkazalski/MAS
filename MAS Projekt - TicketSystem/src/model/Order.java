@@ -24,14 +24,29 @@ public class Order extends DataModel {
 
     public void removeTicket(Ticket ticket) {
         tickets.remove(ticket);
+        // Jeżeli po usunięciu kwota zamówienia jest zbyt niska to usuwamy rabat
+        if(discount!=null  && getTotalPriceBeforeDiscount() < discount.getMinOrderValue()){
+            this.discount = null;
+        }
     }
 
     public void applyDiscount(Discount discount) {
+
         this.discount = discount;
     }
-
-    public double getTotalPrice() {
+    private double getTotalPriceBeforeDiscount(){
         return tickets.stream().mapToDouble(Ticket::getPrice).sum();
+    }
+    public double getTotalPrice() {
+        if (discount != null) {
+            return getTotalPriceBeforeDiscount() - getTotalPriceBeforeDiscount() * discount.getPercentOff() /100;
+        }
+        return getTotalPriceBeforeDiscount();
+
+    }
+
+    public Discount getDiscount() {
+        return discount;
     }
 
     public void cancelOrder() {
@@ -61,6 +76,10 @@ public class Order extends DataModel {
 
     public Set<Ticket> getTickets() {
         return tickets;
+    }
+
+    public Client getClient() {
+        return client;
     }
 
     @Override

@@ -21,22 +21,12 @@ public abstract class CustomView extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 0;
     }
-    public void adjustPreferredSize() {
-        Dimension preferredSize = new Dimension();
-        for (Component c : getComponents()) {
-            Rectangle bounds = c.getBounds();
-            preferredSize.width = Math.max(preferredSize.width, bounds.x + bounds.width);
-            preferredSize.height = Math.max(preferredSize.height, bounds.y + bounds.height);
-        }
-        setPreferredSize(preferredSize);
-        revalidate();
-        repaint();
-    }
     // Odświeżenie widoku
     public void reloadView(Set<DataModel> data) {
         loadData(data);
         drawComponents();
-        adjustPreferredSize();
+        revalidate();
+        repaint();
     }
     // Wczytanie danych do widoku
     private void loadData(Set<DataModel> data) {

@@ -65,6 +65,10 @@ public class Client extends DataModel {
         this.email = email;
     }
 
+    public ArrayList<Discount> getDiscounts() {
+        return discounts;
+    }
+
     @Override
     public String getInfo() {
         return "";
