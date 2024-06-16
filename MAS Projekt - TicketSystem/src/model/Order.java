@@ -20,12 +20,10 @@ public class Order extends DataModel {
     public void addTicket(Ticket ticket) {
         ticket.setOrder(this);
         tickets.add(ticket);
-        System.out.println(getInfo());
     }
 
     public void removeTicket(Ticket ticket) {
         tickets.remove(ticket);
-        System.out.println(getInfo());
     }
 
     public void applyDiscount(Discount discount) {

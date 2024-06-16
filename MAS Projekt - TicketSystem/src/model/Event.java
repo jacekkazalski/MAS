@@ -44,12 +44,10 @@ public class Event extends DataModel {
         int allTickets = venue.getMaxCapacity();
         int groupTickets = (int) (allTickets * groupPercent) / 100;
         int namedTickets = allTickets - groupTickets;
-        System.out.println(namedTickets);
         for (int i = 0; i < namedTickets; i++) {
             Ticket ticket = new NamedTicket(ticketPrice);
             ticket.setEvent(this);
             tickets.add(ticket);
-            System.out.println("Ticket added");
         }
         availableGrpSeats = groupTickets;
         this.ticketPrice = ticketPrice;

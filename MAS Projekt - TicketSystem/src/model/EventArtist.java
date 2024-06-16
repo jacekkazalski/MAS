@@ -2,12 +2,13 @@ package model;
 
 import java.time.LocalDateTime;
 
-public class EventArtist {
+public class EventArtist extends DataModel {
     private Artist artist;
     private Event event;
     private LocalDateTime showTime;
 
     protected EventArtist(Artist artist, Event event, LocalDateTime showTime) {
+        super();
         this.artist = artist;
         this.event = event;
         this.showTime = showTime;
@@ -36,5 +37,10 @@ public class EventArtist {
 
     public void setShowTime(LocalDateTime showTime) {
         this.showTime = showTime;
+    }
+
+    @Override
+    public String getInfo() {
+        return "";
     }
 }

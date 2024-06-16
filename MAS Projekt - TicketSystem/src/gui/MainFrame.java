@@ -4,9 +4,11 @@ import model.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 //TODO: Ogólnie upiększyć xd
 public class MainFrame extends JFrame {
@@ -56,24 +58,7 @@ public class MainFrame extends JFrame {
         switchToListView();
     }
 
-    public static DetailsView getDetailsView() {
-        return detailsView;
-    }
-
-    public static CartView getCartView() {
-        return cartView;
-    }
-
-    public static ListView getListView() {
-        return listView;
-    }
-
-    public static BuyView getBuyView() {
-        return buyView;
-    }
-
     public static void switchToBuyView(int dataId) {
-        System.out.println(cardPanel.getHeight());
         buyView.setDataId(dataId);
         buyView.reloadView(data);
         cardLayout.show(cardPanel, "buyView");
@@ -82,7 +67,6 @@ public class MainFrame extends JFrame {
     }
 
     public static void switchToCartView(int dataId) {
-        System.out.println(cardPanel.getHeight());
         cartView.setDataId(dataId);
         cartView.reloadView(data);
         cardLayout.show(cardPanel, "cartView");
@@ -91,7 +75,6 @@ public class MainFrame extends JFrame {
     }
 
     public static void switchToDetailsView(int dataId) {
-        System.out.println(cardPanel.getHeight());
         detailsView.setDataId(dataId);
         detailsView.reloadView(data);
         cardLayout.show(cardPanel, "detailsView");
@@ -100,26 +83,61 @@ public class MainFrame extends JFrame {
     }
 
     public static void switchToListView() {
-        System.out.println(cardPanel.getHeight());
         listView.reloadView(data);
         cardLayout.show(cardPanel, "listView");
         cardPanel.revalidate();
         cardPanel.repaint();
     }
     public static void main(String[] args) {
+        // Wczytywanie ekstensji
+        String path = "data/extent.ser";
+        try {
+            DataModel.readExtent(new ObjectInputStream(new FileInputStream(path)));
 
-        generateData();
+            System.out.println("Successfully read data");
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println(e.getMessage());
+            System.out.println("Error loading data, generating example data");
+            generateData();
+        }
+        // Tworzenie gui
         JFrame gui = new MainFrame(DataModel.getExtent());
+        loadClient();
         gui.setVisible(true);
+        // Zapisywanie ekstensji
+        File file = new File(path);
+        try {
+            if(!file.exists()) {
+                System.out.println("File does not exist, creating a new file");
+                if(file.getParentFile() != null) {
+                    file.getParentFile().mkdirs();
+                }
+                file.createNewFile();
+            }
+            DataModel.writeExtent(new ObjectOutputStream(new FileOutputStream(path)));
+            System.out.println("Successfully saved data to " + file.getAbsolutePath());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("Extent size: " + DataModel.getExtentSize());
     }
-
+    // Wczytywanie klienta jako obecnego użytkownika
+    public static void loadClient(){
+        client = (Client) data.stream().filter(dataModel -> dataModel instanceof Client).findFirst().orElse(null);
+    }
+    // Tworzenie przykładowych danych
     public static void generateData() {
+        DataModel.setExtent(new HashSet<>());
         client = new Client("Jan", "Kowalski", "jan.kowalski@gmail.com");
         EventCategory concertCategory = new EventCategory("Concert");
         Organiser organiser = new Organiser("Konceritx", "666666666", "koncertix@gmail.com", "Koncertowa 62/3 00-000 " +
                 "Warszawa");
         Venue venue = new Venue(2000, "Klub Szopa", "Koncertowa 12 00-000 Warszawa");
         Artist kombi = new Artist("Kombi");
+        LocalDateTime time = LocalDateTime.now();
+        LocalDateTime time2 = LocalDateTime.of(2024, 7, 22, 18, 0);
+        LocalDateTime time3 = LocalDateTime.of(2024, 7, 22, 20, 0);
+
         organiser.organiseEvent("Super koncert", LocalDate.of(2024, 7, 22), LocalDate.of(2024, 9, 23), venue,
                 concertCategory);
         organiser.organiseEvent("Juwenalia", LocalDate.of(2025, 5, 21), LocalDate.of(2025, 5, 23), venue,

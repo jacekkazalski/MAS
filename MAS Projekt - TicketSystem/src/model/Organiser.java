@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,6 +23,10 @@ public class Organiser extends DataModel {
                               EventCategory eventCategory) {
         Event event = new Event(name, startDate, endDate, venue, eventCategory);
         events.add(event);
+    }
+    // Dodaje koncert do wybranego wydarzenia
+    public void addShowToEvent(Event event, Artist artist, LocalDateTime time){
+        event.addShow(artist, time);
     }
 
     public Set<Event> getEvents() {
